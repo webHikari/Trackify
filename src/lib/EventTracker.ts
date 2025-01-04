@@ -2,6 +2,7 @@ import Trackify from "./Trackify";
 import { throttle } from "../utils/throttle";
 
 class EventTracker {
+
     // throttle, RAF and RAF flag for optimizing
     static lastMouseEvent: MouseEvent | null = null;
     static isRAFRunning = false;
