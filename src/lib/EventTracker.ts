@@ -44,7 +44,8 @@ class EventTracker {
             Trackify.trackEvent("click", {
                 x: e.clientX,
                 y: e.clientY,
-                element: e.target,
+				// next time :)
+                // element: e.target,
             });
         });
     }

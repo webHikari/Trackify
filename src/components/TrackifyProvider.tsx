@@ -2,7 +2,9 @@ import React, { useEffect, useState } from "react";
 import Trackify from "../lib/Trackify";
 import EventTracker from "../lib/EventTracker";
 
-const TrackifyProvider = ({ children }: { children: React.ReactNode }) => {
+const TrackifyProvider = ({ children, TR_URL }: { children: React.ReactNode, TR_URL: string }) => {
+
+	console.log(TR_URL);
     const [isTrackifyModalOpen, setIsTrackifyModelOpen] =
         useState<boolean>(false);
 
@@ -24,6 +26,8 @@ const TrackifyProvider = ({ children }: { children: React.ReactNode }) => {
             const clickEvents = Trackify.getClickEvents();
             console.log("Click Events", clickEvents);
         }, 5000);
+
+		Trackify.startPeriodicSending(TR_URL);
 
         // add hotkey to open statistics
         const handleKeyDown = (e: KeyboardEvent) => {

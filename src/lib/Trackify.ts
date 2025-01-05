@@ -45,7 +45,7 @@ class Trackify {
 
             click: (payload) => {
                 const missingPayload =
-                    "x" in payload && "y" in payload && "element" in payload;
+                    "x" in payload && "y" in payload /* && "element" in payload */;
 
                 if (!missingPayload) return;
                 this.clickEvents.push({ ...payload, timestamp });
@@ -55,6 +55,44 @@ class Trackify {
         if (!eventHandlers[eventName]) return;
         eventHandlers[eventName](payload);
     }
+
+    // send data to Trackify-Server
+    private static async sendEventsToServer(TR_URL: string) {
+        if (!TR_URL) return;
+
+        const payload = {
+            mousemoveEvents: [...this.mousemoveEvents],
+            scrollEvents: [...this.scrollEvents],
+            clickEvents: [...this.clickEvents],
+        };
+
+        try {
+            const response = await fetch(TR_URL, {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(payload),
+            });
+
+            if (response.ok) {
+                this.mousemoveEvents = [];
+                this.scrollEvents = [];
+                this.clickEvents = [];
+            } else {
+                console.error("Failed to send events:", response.statusText);
+            }
+        } catch (error) {
+            console.error("Error sending events:", error);
+        }
+    }
+
+    // start periodic event sending
+    public static startPeriodicSending(TR_URL: string) {
+        setInterval(() => {
+            this.sendEventsToServer(TR_URL);
+        }, 1000); 
+	}
 
     // getters for getting arrays of events
     public static getMousemoveEvents() {
