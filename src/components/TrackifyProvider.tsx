@@ -1,19 +1,24 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Trackify from "../lib/Trackify";
 import EventTracker from "../lib/EventTracker";
 
-const TrackifyProvider = ({ children, TR_URL }: { children: React.ReactNode, TR_URL: string }) => {
-
-	console.log(TR_URL);
-    const [isTrackifyModalOpen, setIsTrackifyModelOpen] =
-        useState<boolean>(false);
+const TrackifyProvider = ({
+    children,
+    TR_URL,
+}: {
+    children: React.ReactNode;
+    TR_URL: string;
+}) => {
+    console.log(TR_URL);
 
     useEffect(() => {
         Trackify.getInstance();
+        Trackify.setUrl(TR_URL);
 
         EventTracker.trackClicks();
         EventTracker.trackMouseMovement();
         EventTracker.trackScroll();
+        EventTracker.trackTimeOnPage();
 
         // console.log data for debugging
         const interval = setInterval(() => {
@@ -25,30 +30,15 @@ const TrackifyProvider = ({ children, TR_URL }: { children: React.ReactNode, TR_
 
             const clickEvents = Trackify.getClickEvents();
             console.log("Click Events", clickEvents);
-        }, 5000);
+        }, 50000);
 
-		Trackify.startPeriodicSending(TR_URL);
-
-        // add hotkey to open statistics
-        const handleKeyDown = (e: KeyboardEvent) => {
-            if (e.metaKey && e.key === "o") {
-                setIsTrackifyModelOpen((prev) => !prev);
-            }
-        };
-
-        document.addEventListener("keydown", handleKeyDown);
-
+        Trackify.startPeriodicSending();
         return () => {
             clearInterval(interval);
         };
     }, []);
 
-    return (
-        <>
-            {children}
-            {isTrackifyModalOpen && <div>123321</div>}
-        </>
-    );
+    return <>{children}</>;
 };
 
 export default TrackifyProvider;

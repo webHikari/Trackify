@@ -1,13 +1,21 @@
-import { IClick, IMouseMove, IScroll } from "../types/events";
+import { IClick, IMouseMove, IScroll, ITimeOnPage } from "../types/events";
+import { random_string } from "../utils/random_string";
 
 class Trackify {
     private static isEnabled: boolean = true;
     private static instance: Trackify;
+	private static TR_URL: string;
 
     // global arrays for storing data
     private static mousemoveEvents: IMouseMove[] = [];
     private static scrollEvents: IScroll[] = [];
     private static clickEvents: IClick[] = [];
+    private static timeOnPage: ITimeOnPage = {
+        userId: random_string(16),
+        url: window.location.href,
+        startTime: Date.now(),
+        endTime: Date.now(),
+    };
 
     private constructor() {}
 
@@ -16,6 +24,10 @@ class Trackify {
         else Trackify.instance = new Trackify();
         return Trackify.instance;
     }
+
+	public static setUrl(TR_URL: string) {
+		this.TR_URL = TR_URL	
+	}
 
     // turn on-off methods
     public static enableTracking() {
@@ -45,10 +57,43 @@ class Trackify {
 
             click: (payload) => {
                 const missingPayload =
-                    "x" in payload && "y" in payload /* && "element" in payload */;
+                    "x" in payload &&
+                    "y" in payload; /* && "element" in payload */
 
                 if (!missingPayload) return;
                 this.clickEvents.push({ ...payload, timestamp });
+            },
+
+            timeOnPage: async () => {
+                console.log(this.timeOnPage);
+
+                if (!this.timeOnPage) {
+                    return (this.timeOnPage = {
+                        userId: random_string(16),
+                        url: window.location.href,
+                        startTime: Date.now(),
+                        endTime: Date.now(),
+                    });
+                }
+
+                if (this.timeOnPage.url !== window.location.href) {
+                    await this.sendTimeToServer();
+
+                    return (this.timeOnPage = {
+                        userId: random_string(16),
+                        url: window.location.href,
+                        startTime: Date.now(),
+                        endTime: Date.now(),
+                    });
+                }
+
+                await this.sendTimeToServer();
+                this.timeOnPage = {
+                    userId: this.timeOnPage.userId,
+                    url: this.timeOnPage.url,
+                    startTime: this.timeOnPage.startTime,
+                    endTime: Date.now(),
+                };
             },
         };
 
@@ -57,8 +102,7 @@ class Trackify {
     }
 
     // send data to Trackify-Server
-    private static async sendEventsToServer(TR_URL: string) {
-        if (!TR_URL) return;
+    private static async sendEventsToServer() {
 
         const payload = {
             mousemoveEvents: [...this.mousemoveEvents],
@@ -67,7 +111,7 @@ class Trackify {
         };
 
         try {
-            const response = await fetch(TR_URL, {
+            const response = await fetch(this.TR_URL, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -87,12 +131,16 @@ class Trackify {
         }
     }
 
+    private static async sendTimeToServer() {
+        console.log("time sended");
+    }
+
     // start periodic event sending
-    public static startPeriodicSending(TR_URL: string) {
+    public static startPeriodicSending() {
         setInterval(() => {
-            this.sendEventsToServer(TR_URL);
-        }, 1000); 
-	}
+            this.sendEventsToServer();
+        }, 9000);
+    }
 
     // getters for getting arrays of events
     public static getMousemoveEvents() {

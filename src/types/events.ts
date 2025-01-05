@@ -15,3 +15,10 @@ export interface IClick {
 	element: EventTarget | null;
 	timestamp: number;
 }
+
+export interface ITimeOnPage {
+	userId: string,
+	url: string,
+	startTime: number,
+	endTime: number
+}

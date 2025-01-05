@@ -50,6 +50,12 @@ class EventTracker {
         });
     }
 
+	static trackTimeOnPage() {
+		setInterval(() => {
+			Trackify.trackEvent("timeOnPage")	
+		}, 10000)
+	}
+
     // just init
     static init() {
         this.trackMouseMovement();
