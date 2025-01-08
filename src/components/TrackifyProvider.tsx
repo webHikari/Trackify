@@ -3,42 +3,35 @@ import Trackify from "../lib/Trackify";
 import EventTracker from "../lib/EventTracker";
 
 const TrackifyProvider = ({
-    children,
-    TR_URL,
+	children,
+	TR_URL,
 }: {
-    children: React.ReactNode;
-    TR_URL: string;
+	children: React.ReactNode;
+	TR_URL: string;
 }) => {
-    console.log(TR_URL);
+	useEffect(() => {
+		Trackify.setUrl(TR_URL);
 
-    useEffect(() => {
-        Trackify.getInstance();
-        Trackify.setUrl(TR_URL);
+		EventTracker.trackTimeOnPage();
 
-        EventTracker.trackClicks();
-        EventTracker.trackMouseMovement();
-        EventTracker.trackScroll();
-        EventTracker.trackTimeOnPage();
+		const origAddEventListener = EventTarget.prototype.addEventListener;
+		EventTarget.prototype.addEventListener = function(
+			type,
+			listener,
+			options,
+		) {
+			if (type === "message") {
+				console.trace("message listener added");
+			}
+			return origAddEventListener.call(this, type, listener, options);
+		};
 
-        // console.log data for debugging
-        const interval = setInterval(() => {
-            const mousemoveEvents = Trackify.getMousemoveEvents();
-            console.log("Mouse Move Events:", mousemoveEvents);
+		console.log("TrackifyProvider mounted");
 
-            const scrollEvents = Trackify.getScrollEvents();
-            console.log("Scroll Events", scrollEvents);
+		return () => { };
+	}, [TR_URL]); // Добавляем зависимость TR_URL
 
-            const clickEvents = Trackify.getClickEvents();
-            console.log("Click Events", clickEvents);
-        }, 50000);
-
-        Trackify.startPeriodicSending();
-        return () => {
-            clearInterval(interval);
-        };
-    }, []);
-
-    return <>{children}</>;
+	return <>{children}</>;
 };
 
 export default TrackifyProvider;
