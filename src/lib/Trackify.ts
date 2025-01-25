@@ -83,11 +83,15 @@ class Trackify {
 
     // send data to server
     private static async sendTimeToServer() {
-		await fetch(`${this.TR_URL}/time`, {
-			method: "POST",
-			body: JSON.stringify(this.timeOnPage)
-		})
+        await fetch(`${this.TR_URL}/time`, {
+            method: "POST",
+            body: JSON.stringify(this.timeOnPage),
+        });
         console.log("time sended");
+    }
+
+    public static getUrl(): string {
+        return this.TR_URL;
     }
 }
 
