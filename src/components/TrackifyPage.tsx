@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Trackify from "../lib/Trackify";
 import {
     Chart as ChartJS,
@@ -12,8 +12,8 @@ import {
     PointElement,
     ArcElement,
 } from "chart.js";
-import { Bar, Line, Pie } from "react-chartjs-2";
-import "./TrackifyPage.css";
+import { Bar, Pie } from "react-chartjs-2";
+import styles from "./TrackifyPage.module.css";
 
 interface Statistics {
     eventsByHour: {
@@ -58,7 +58,7 @@ ChartJS.register(
     Title,
     Tooltip,
     Legend,
-    ArcElement
+    ArcElement,
 );
 
 const weekDays = ["Вс", "Пн", "Вт", "Ср", "Чт", "Пт", "Сб"];
@@ -141,7 +141,7 @@ const TrackifyPage = () => {
 
     const weekdayChartData = {
         labels: processedData.weekdayActivity.map(
-            (item) => weekDays[item.weekday]
+            (item) => weekDays[item.weekday],
         ),
         datasets: [
             {
@@ -201,8 +201,8 @@ const TrackifyPage = () => {
     };
 
     return (
-        <div className="statistics-container">
-            <div className="charts-grid">
+        <div className={styles.statisticsContainer}>
+            <div className={styles.chartsGrid}>
                 <div className="chart-container">
                     <h2 className="chart-title">Активность по часам</h2>
                     <Bar options={chartOptions} data={hourlyChartData} />

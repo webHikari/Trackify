@@ -1,9 +1,13 @@
-.statistics-container {
+.statisticsContainer {
+	/* position: absolute;
+	left: 0; top: 0;
+	Maybe next time
+	*/
     width: 100%;
     min-height: 100vh;
 }
 
-.charts-grid {
+.chartsGrid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
