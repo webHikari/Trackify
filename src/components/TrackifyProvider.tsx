@@ -29,8 +29,7 @@ const TrackifyProvider = ({
 		console.log("TrackifyProvider mounted");
 
 		return () => { };
-	}, [TR_URL]); // Добавляем зависимость TR_URL
-
+	}, [TR_URL]);
 	return <>{children}</>;
 };
 
