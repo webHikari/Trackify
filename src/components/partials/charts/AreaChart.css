@@ -1,0 +1,18 @@
+.area-chart-container {
+  width: 100%;
+  position: relative;
+  background-color: transparent;
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.no-data-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #999;
+  font-size: 14px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+} 

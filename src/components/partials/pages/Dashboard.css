@@ -1,0 +1,209 @@
+.trackify-dashboard {
+  display: flex;
+  min-height: 100vh;
+  background-color: #141414;
+  color: #fff;
+}
+
+.content-area {
+  flex: 1;
+  margin-left: 250px;
+  padding: 30px;
+}
+
+.loading-state,
+.error-state,
+.no-data-state {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 18px;
+}
+
+.error-state {
+  color: #ff6b6b;
+}
+
+.charts-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+  margin-bottom: 20px;
+}
+
+.chart-container {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  margin-bottom: 20px;
+}
+
+.chart-title {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 18px;
+  color: #61dafb;
+  text-align: left;
+}
+
+.placeholder-chart {
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+/* Стили для Home */
+.home-container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.home-container h1 {
+  color: #61dafb;
+  margin-bottom: 20px;
+  font-size: 32px;
+}
+
+.intro-text {
+  font-size: 18px;
+  line-height: 1.6;
+  margin-bottom: 30px;
+  color: #e0e0e0;
+}
+
+.feature-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  text-align: left;
+  padding: 25px;
+  margin-bottom: 30px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  border-left: 4px solid #61dafb;
+}
+
+.feature-card h2 {
+  text-align: left;
+  color: #61dafb;
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 24px;
+}
+
+.feature-card ul {
+  padding-left: 10px;
+  list-style-type: none;
+}
+
+.feature-card li {
+  margin-bottom: 15px;
+  display: flex;
+  align-items: flex-start;
+}
+
+.feature-icon {
+  font-size: 22px;
+  margin-right: 15px;
+  display: inline-block;
+}
+
+.feature-text {
+  display: inline-block;
+  line-height: 1.5;
+}
+
+.feature-text strong {
+  color: #e0e0e0;
+}
+
+.getting-started {
+  border-left: 4px solid #10b981;
+}
+
+.getting-started h2 {
+  color: #10b981;
+}
+
+.code-example {
+  background-color: #2a2a2a;
+  border-radius: 6px;
+  padding: 15px;
+  margin-top: 15px;
+  overflow-x: auto;
+}
+
+.code-example pre {
+  margin: 0;
+}
+
+.code-example code {
+  font-family: 'Courier New', Courier, monospace;
+  color: #e0e0e0;
+  line-height: 1.5;
+}
+
+/* Стили для Dashboard */
+.stats-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 30px;
+}
+
+.stat-card {
+  background-color: #1e1e1e;
+  border-radius: 8px;
+  padding: 20px;
+  /* text-align: center; */
+}
+
+.stat-value {
+  font-size: 32px;
+  font-weight: bold;
+  color: #61dafb;
+  margin: 10px 0 0;
+}
+
+/* Стили для Activity */
+.events-summary {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.event-card {
+  background-color: #2a2a2a;
+  border-radius: 4px;
+  padding: 15px;
+  /* text-align: center; */
+}
+
+/* Стили для Pages */
+.top-pages-table {
+  overflow-x: auto;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+th, td {
+  padding: 12px 15px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+th {
+  background-color: #2a2a2a;
+  /* color: #61dafb; */
+}
+
+tr:hover {
+  background-color: #2a2a2a;
+} 
