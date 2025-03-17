@@ -1,0 +1,102 @@
+.world-map-container {
+  width: 100%;
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  padding: 10px;
+}
+
+.map-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.world-map {
+  width: 100%;
+  border-radius: 4px;
+  position: relative;
+  overflow: hidden;
+}
+
+.country-stats {
+  margin-top: 20px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.stats-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.stats-table th,
+.stats-table td {
+  padding: 8px 12px;
+  text-align: left;
+  border-bottom: 1px solid #333;
+}
+
+.stats-table th {
+  background-color: #2a2a2a;
+  color: #61dafb;
+}
+
+.map-tooltip {
+  position: absolute;
+  background-color: rgba(0, 0, 0, 0.8);
+  color: white;
+  padding: 5px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  z-index: 1000;
+  pointer-events: none;
+}
+
+.no-data-message {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+  color: #999;
+  font-size: 14px;
+  background-color: #2a2a2a;
+  border-radius: 4px;
+}
+
+.rsm-geography {
+  cursor: pointer;
+  outline: none;
+}
+
+.rsm-marker {
+  cursor: pointer;
+}
+
+.rsm-zoomable-group {
+  cursor: grab;
+}
+
+.rsm-zoomable-group:active {
+  cursor: grabbing;
+}
+
+.map-tiles {
+  filter: brightness(0.5) invert(1) contrast(1.5) hue-rotate(200deg) saturate(0.3);
+}
+
+.custom-marker {
+  background: transparent;
+  border: none;
+}
+
+.leaflet-popup-content-wrapper {
+  background-color: #1e1e1e;
+  color: white;
+  border-radius: 4px;
+}
+
+.leaflet-popup-tip {
+  background-color: #1e1e1e;
+}
+

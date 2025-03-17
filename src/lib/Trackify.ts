@@ -90,6 +90,11 @@ class Trackify {
         console.log("time sended");
     }
 
+    public static async getGeoStatistics() {
+        const response = await fetch(`${this.TR_URL}/geo-statistics`);
+        return response.json();
+    }
+
     public static getUrl(): string {
         return this.TR_URL;
     }

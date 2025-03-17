@@ -48,6 +48,28 @@ export const Activity: React.FC<ActivityProps> = ({ statistics }) => {
   console.log("hourly data:", hourlyData);
   console.log("weekday data:", weekdayData);
 
+  // 5. Ensure all days of the week are represented
+  const ensureAllDays = () => {
+    // Check if we're using weekdayActivity data
+    if (!statistics.activityByDayOfWeek && statistics.weekdayActivity) {
+      // Create a map of existing days
+      const existingDays = new Map(
+        weekdayData.map(item => [item.label, item.value])
+      );
+      
+      // Create a complete dataset with all days
+      return weekdayNames.map(day => ({
+        label: day,
+        value: existingDays.get(day) || 0
+      }));
+    }
+    
+    return weekdayData;
+  };
+
+  // Get complete weekday data
+  const completeWeekdayData = ensureAllDays();
+
   return (
     <div className="activity-container">
       <h1>User Activity</h1>
@@ -59,15 +81,17 @@ export const Activity: React.FC<ActivityProps> = ({ statistics }) => {
             data={hourlyData} 
             color="#4f46e5"
             height={250}
+            barThickness={12}
           />
         </div>
         
         <div className="chart-container">
           <h2 className="chart-title">Weekly Activity</h2>
           <BarChart 
-            data={weekdayData} 
+            data={completeWeekdayData} 
             color="#10b981"
             height={250}
+            barThickness={20}
           />
         </div>
       </div>

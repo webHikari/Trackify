@@ -12,6 +12,7 @@ export const Sidebar: React.FC<SidebarProps> = ({ activeTab, setActiveTab }) => 
     { id: "dashboard", label: "Dashboard" },
     { id: "activity", label: "Activity" },
     { id: "pages", label: "Pages" },
+    { id: "geomap", label: "User Locations" },
   ];
 
   return (

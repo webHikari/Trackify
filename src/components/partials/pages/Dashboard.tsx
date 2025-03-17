@@ -4,6 +4,7 @@ import { Sidebar } from "../Sidebar";
 import { Home } from "./Home";
 import { Activity } from "./Activity";
 import { Pages } from "./Pages";
+import { GeoMap } from "./GeoMap";
 import "./Dashboard.css";
 
 interface Statistics {
@@ -129,6 +130,8 @@ export const Dashboard = () => {
 				return <Activity statistics={statistics} />;
 			case "pages":
 				return <Pages statistics={statistics} />;
+			case "geomap":
+				return <GeoMap />;
 			default:
 				return <Home />;
 		}
